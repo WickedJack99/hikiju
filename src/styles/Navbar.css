@@ -1,0 +1,83 @@
+/* Sidebar styles */
+.sidebar {
+    position: fixed;
+    top: 0;
+    left: -250px; /* Keep it off the screen initially */
+    width: 250px;
+    height: 100%;
+    background-color: #333;
+    transition: left 0.3s ease;
+    padding-top: 60px;
+    z-index: 100; /* Ensure sidebar stays above other content */
+}
+
+.sidebar.open {
+    left: 0; /* Slide it in */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333;
+    padding: 10px 20px;
+    color: white;
+    position: relative;
+}
+
+/* Position the burger menu */
+.burger-menu {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 200; /* Make sure the burger menu is above the sidebar */
+}
+
+.bar {
+    width: 25px;
+    height: 3px;
+    background-color: white;
+    transition: all 0.3s ease;
+}
+
+/* Dark mode button */
+.darkmode-btn {
+    font-size: 20px;
+    cursor: pointer;
+}
+
+/* Sidebar content */
+.sidebar ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.sidebar li {
+    padding: 15px;
+    text-align: center;
+    color: white;
+}
+
+.sidebar li:hover {
+    background-color: #444;
+}
+
+/* Dark Mode */
+body.darkmode {
+    background-color: #121212;
+    color: white;
+}
+
+body.darkmode .navbar {
+    background-color: #1f1f1f;
+}
+
+body.darkmode .sidebar {
+    background-color: #1f1f1f;
+}
+
+/* Adjust the z-index values */
+body.darkmode .navbar, body .navbar {
+    z-index: 300; /* Put navbar above sidebar */
+}
