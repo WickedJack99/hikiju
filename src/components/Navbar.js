@@ -5,12 +5,11 @@ import { useColorScheme } from '@mui/material/styles';
 import React, { useState } from "react";
 
 import { useTranslation } from 'react-i18next';
-import i18n from '../i18n';
 import LanguageSwitcher from "./LanguageSwitcher";
 
 function Navbar() {
     const { t } = useTranslation();
-    const language = i18n.language;
+    const language = localStorage.getItem('i18nLanguage');
 
     function getTranslation(key) {
         return t(language + '.' + key + '.translation');

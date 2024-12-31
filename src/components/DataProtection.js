@@ -2,12 +2,11 @@ import Layout from "./Layout";
 import * as React from 'react';
 import { Stack } from "@mui/material";
 import { useTranslation } from 'react-i18next';
-import i18n from '../i18n';
 import BackCard from "./BackCard";
 
 function DataProtection() {
     const { t } = useTranslation();
-    const language = i18n.language;
+    const language = localStorage.getItem('i18nLanguage');
     function getTranslation(key) {
         return t(language + '.' + key + '.translation');
     }

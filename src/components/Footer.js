@@ -1,10 +1,9 @@
 import { Box, Typography, Link, Container } from '@mui/material'; // MUI-Komponenten importieren
 import { useTranslation } from 'react-i18next';
-import i18n from '../i18n';
 
 const Footer = () => {
   const { t } = useTranslation();
-  const language = i18n.language;
+  const language = localStorage.getItem('i18nLanguage');
 
   function getTranslation(key) {
     return t(language + '.' + key + '.translation');

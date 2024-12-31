@@ -2,11 +2,10 @@ import Layout from "./Layout";
 import { Box, Stack, Divider, Typography, Card, CardActionArea, CardContent } from '@mui/material';
 import { Directions as DirectionsIcon, Search as SearchIcon, CorporateFare as CorporateFareIcon, Emergency as EmergencyIcon} from "@mui/icons-material";
 import { useTranslation } from 'react-i18next';
-import i18n from '../i18n';
 
 function Home() {
   const { t } = useTranslation();
-  const language = i18n.language;
+  const language = localStorage.getItem('i18nLanguage');
 
   function getTranslation(key) {
     return t(language + '.' + key + '.translation');
