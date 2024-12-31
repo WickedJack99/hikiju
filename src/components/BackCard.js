@@ -1,20 +1,15 @@
 import { useNavigate } from 'react-router-dom';
-import React, { useState, useEffect } from "react";
 import { Card, CardContent, Typography, CardActionArea } from '@mui/material';
+import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
 
 function BackCard() {
-    const [backPageTranslations, setBackPageTranslations] = useState({"back_button_text":""});
-    
-      useEffect(() => {
-        // Fetch data from API
-        fetch("https://hikiju.de/translation/de/back_pages")
-          .then((response) => response.json())
-          .then((data) => {
-            // Set the fetched data
-            setBackPageTranslations(data);
-          })
-          .catch((error) => console.error("Error when loading data:", error));
-      }, []);
+    const { t } = useTranslation();
+    const language = i18n.language;
+
+    function getTranslation(key) {
+        return t(language + '.' + key + '.translation');
+    }
 
     const navigate = useNavigate();
     const content = (
@@ -31,7 +26,7 @@ function BackCard() {
                 <CardActionArea>
                     <CardContent>
                         <Typography variant="h5" color="textSecondary">
-                            {backPageTranslations["back_button_text"]}
+                            {getTranslation('back_button_text')}
                         </Typography>
                     </CardContent>
                 </CardActionArea>

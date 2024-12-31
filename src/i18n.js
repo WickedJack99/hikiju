@@ -6,7 +6,7 @@ i18n
   .use(HttpApi) // Übersetzungen von einem Server laden
   .use(initReactI18next) // Bindet i18next an React
   .init({
-    lng: 'de', // Standardsprache
+    lng: localStorage.getItem('i18nLanguage') || 'de',
     fallbackLng: 'de', // Fallback, wenn Übersetzungen fehlen
     backend: {
       loadPath: 'https://hikiju.de/translations?lang={{lng}}' // URL, um Übersetzungen zu laden

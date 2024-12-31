@@ -3,12 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import { Stack, Card, CardContent, Typography, CardActionArea, Box } from "@mui/material";
 import BackCard from "./BackCard";
 import MUIIconFactory from "./MUIIconFactory";
+import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
 
 function MainCategories() {
+  const { t } = useTranslation();
+  const language = i18n.language;
+  function getTranslation(key) {
+      return t(language + '.' + key + '.translation');
+  }
+  
   const navigate = useNavigate();
 
   const [categories, setCategories] = useState([]);
-  const [mainCategoriesTranslations, setMainCategoriesTranslations] = useState({"main_categories_heading":""});
 
   const handleCardClick = (category) => {
     navigate(`/category/${category.name}`, {state: category})
@@ -25,21 +32,12 @@ function MainCategories() {
         console.log(mainCategories);
       })
       .catch((error) => console.error("Error when loading data:", error));
-
-    // Fetch data from API
-    fetch("https://hikiju.de/translation/de/main_categories")
-      .then((response) => response.json())
-      .then((data) => {
-      // Set the fetched data
-      setMainCategoriesTranslations(data);
-      })
-      .catch((error) => console.error("Error when loading data:", error));
   }, []);
 
   return (
     <Stack spacing={3} marginTop={3} alignItems="center">
       <Typography variant="h4" gutterBottom>
-        {mainCategoriesTranslations["main_categories_heading"]}
+        {getTranslation('main_categories_heading')}
       </Typography>
       
       {categories.map((category) => (
@@ -51,7 +49,7 @@ function MainCategories() {
                 <MUIIconFactory name={category.name} />
               </Box>
               <Typography variant="h5" sx={{ marginLeft: 1 }}>
-                {category.translations.de}
+                {getTranslation(category.name)}
               </Typography>
             </CardContent>
           </CardActionArea>

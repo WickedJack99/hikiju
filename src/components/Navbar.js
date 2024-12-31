@@ -1,11 +1,12 @@
 import { AppBar, Drawer, IconButton, Box, List, ListItem, ListItemButton, ListItemIcon, ListItemText, Divider, Toolbar } from "@mui/material";
-import { Menu as MenuIcon, DarkMode as DarkModeIcon, Language as LanguageIcon, Home as HomeIcon, Directions as DirectionsIcon, Search as SearchIcon, CorporateFare as CorporateFareIcon, Emergency as EmergencyIcon } from "@mui/icons-material";
+import { Menu as MenuIcon, DarkMode as DarkModeIcon, Home as HomeIcon, Directions as DirectionsIcon, Search as SearchIcon, CorporateFare as CorporateFareIcon, Emergency as EmergencyIcon } from "@mui/icons-material";
 import "../styles/Navbar.css";
 import { useColorScheme } from '@mui/material/styles';
 import React, { useState } from "react";
 
 import { useTranslation } from 'react-i18next';
 import i18n from '../i18n';
+import LanguageSwitcher from "./LanguageSwitcher";
 
 function Navbar() {
     const { t } = useTranslation();
@@ -91,15 +92,7 @@ function Navbar() {
                 <DarkModeIcon />
                 </IconButton>
 
-                <IconButton
-                color="inherit"
-                aria-label="Change Language"
-                onClick={() => {
-                    
-                }}
-                >
-                <LanguageIcon />
-                </IconButton>
+                <LanguageSwitcher/>
             </Box>
             </Toolbar>
         </AppBar>

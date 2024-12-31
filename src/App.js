@@ -7,7 +7,6 @@ import CssBaseline from '@mui/material/CssBaseline';
 import './i18n';
 
 import Home from './components/Home';
-import Directions from './components/Directions';
 import AssistanceOffers from './components/AssistanceOffers';
 import Search from './components/Search';
 import Imprint from './components/Imprint';
@@ -15,6 +14,7 @@ import DataProtection from './components/DataProtection';
 import Contact from './components/Contact';
 import SubCategories from './components/SubCategories';
 import Solution from './components/Solution';
+import Directions from './components/Directions';
 
 function App() {
 
