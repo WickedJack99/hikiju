@@ -6,9 +6,27 @@ header("Access-Control-Allow-Headers: Content-Type, Authorization"); // Erlaubte
 
 require 'hikiju_open_information_db_connection.php';
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
-    // Fetch questions data
+    $is_first = isset($_GET['is_first']) ? strtolower($_GET['is_first']) : null;
+
+    if ($is_first === 'true') {
+        $is_first = 1; // Convert "true" to 1
+    } elseif ($is_first === 'false') {
+        $is_first = 0; // Convert "false" to 0
+    } else {
+        $is_first = null; // Treat invalid or missing values as null
+    }
+    
     $sql = "SELECT * FROM questions";
-    $stmt = $pdo->query($sql);
+    $stmt = null;
+    
+    if ($is_first !== null) {
+        $sql = "SELECT * FROM questions WHERE is_first = :is_first";
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute(['is_first' => $is_first]);
+    } else {
+        $stmt = $pdo->prepare($sql);
+        $stmt->execute();
+    }
 
     // Fetch all rows as an associative array
     $data = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -24,9 +42,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
         }
         if (isset($row['linked_questions'])) {
             $row['linked_questions'] = json_decode(preg_replace('/\s+/', ' ', $row['linked_questions']));
-        }
-        if (isset($row['translations'])) {
-            $row['translations'] = json_decode(preg_replace('/\s+/', ' ', $row['translations']));
         }
         if (isset($row['tags'])) {
             $row['tags'] = json_decode(preg_replace('/\s+/', ' ', $row['tags']));

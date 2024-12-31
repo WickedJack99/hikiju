@@ -33,9 +33,6 @@ if (preg_match('#^/question/([^/]+)$#', $request_uri, $matches)) {
         if (isset($row['linked_questions'])) {
             $row['linked_questions'] = json_decode(preg_replace('/\s+/', ' ', $row['linked_questions']));
         }
-        if (isset($row['translations'])) {
-            $row['translations'] = json_decode(preg_replace('/\s+/', ' ', $row['translations']));
-        }
     }
     // Output the data as JSON
     header('Content-Type: application/json');
