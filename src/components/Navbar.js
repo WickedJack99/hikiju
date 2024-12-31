@@ -2,9 +2,19 @@ import { AppBar, Drawer, IconButton, Box, List, ListItem, ListItemButton, ListIt
 import { Menu as MenuIcon, DarkMode as DarkModeIcon, Language as LanguageIcon, Home as HomeIcon, Directions as DirectionsIcon, Search as SearchIcon, CorporateFare as CorporateFareIcon, Emergency as EmergencyIcon } from "@mui/icons-material";
 import "../styles/Navbar.css";
 import { useColorScheme } from '@mui/material/styles';
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+
+import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
 
 function Navbar() {
+    const { t } = useTranslation();
+    const language = i18n.language;
+
+    function getTranslation(key) {
+        return t(language + '.' + key + '.translation');
+    }
+
     const { mode, setMode } = useColorScheme();
 
     const [open, setOpen] = useState(false);
@@ -12,19 +22,6 @@ function Navbar() {
     const toggleDrawer = (newOpen) => () => {
         setOpen(newOpen);
     };
-
-    const [navbarTranslations, setNavbarTranslations] = useState({"nav_directions":"", "nav_assistance":"", "nav_search":"", "nav_emergency":"", "nav_home":""});
-    
-    useEffect(() => {
-    // Fetch data from API
-    fetch("https://hikiju.de/translation/de/home")
-        .then((response) => response.json())
-        .then((data) => {
-        // Set the fetched data
-        setNavbarTranslations(data);
-        })
-        .catch((error) => console.error("Error when loading data:", error));
-    }, []);
 
     const drawerItems = [
         { href: "/", icon: <HomeIcon />, textKey: "nav_home" },
@@ -45,7 +42,7 @@ function Navbar() {
                     <ListItem key={index}>
                         <ListItemButton href={item.href}>
                             <ListItemIcon>{item.icon}</ListItemIcon>
-                            <ListItemText primary={navbarTranslations[item.textKey]} />
+                            <ListItemText primary={getTranslation(item.textKey)} />
                         </ListItemButton>
                     </ListItem>
                 ))}
@@ -55,7 +52,7 @@ function Navbar() {
                 <ListItem>
                     <ListItemButton href={emergencyItem.href}>
                         <ListItemIcon>{emergencyItem.icon}</ListItemIcon>
-                        <ListItemText primary={navbarTranslations[emergencyItem.textKey]} />
+                        <ListItemText primary={getTranslation(emergencyItem.textKey)} />
                     </ListItemButton>
                 </ListItem>
             </List>

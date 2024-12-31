@@ -1,19 +1,14 @@
 import { Box, Typography, Link, Container } from '@mui/material'; // MUI-Komponenten importieren
-import React, { useState, useEffect } from "react";
+import { useTranslation } from 'react-i18next';
+import i18n from '../i18n';
 
 const Footer = () => {
-  const [footerTranslations, setFooterTranslations] = useState({"footer_impressum":"", "footer_datenschutz":"", "footer_kontakt":"", "footer_meldung":""});
-      
-  useEffect(() => {
-    // Fetch data from API
-    fetch("https://hikiju.de/translation/de/footer")
-      .then((response) => response.json())
-      .then((data) => {
-        // Set the fetched data
-        setFooterTranslations(data);
-      })
-      .catch((error) => console.error("Error when loading data:", error));
-  }, []);
+  const { t } = useTranslation();
+  const language = i18n.language;
+
+  function getTranslation(key) {
+    return t(language + '.' + key + '.translation');
+  }
 
   return (
     <Box
@@ -31,17 +26,17 @@ const Footer = () => {
     >
       <Container maxWidth="lg">
         <Typography variant="body2" align="center" sx={{ mb: 2 }}>
-          &copy; {footerTranslations["footer_meldung"]}
+          &copy; {getTranslation('footer_meldung')}
         </Typography>
         <Box display="flex" justifyContent="center" sx={{ mb: 2 }}>
           <Link href="/imprint" color="inherit" sx={{ mx: 2 }}>
-            {footerTranslations["footer_impressum"]}
+            {getTranslation('footer_impressum')}
           </Link>
           <Link href="/data_protection" color="inherit" sx={{ mx: 2 }}>
-            {footerTranslations["footer_datenschutz"]}
+            {getTranslation('footer_datenschutz')}
           </Link>
           <Link href="/contact" color="inherit" sx={{ mx: 2 }}>
-            {footerTranslations["footer_kontakt"]}
+            {getTranslation('footer_kontakt')}
           </Link>
         </Box>
       </Container>
