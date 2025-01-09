@@ -1,5 +1,6 @@
 import './App.css';
 
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
@@ -17,6 +18,14 @@ import Solution from './components/Solution';
 import Directions from './components/Directions';
 
 function App() {
+  useEffect(() => {
+    // Check if the key already exists in localStorage
+    const key = "i18nLanguage";
+    if (!localStorage.getItem(key)) {
+      // Initialize with a default value if it doesn't exist
+      localStorage.setItem(key, "de");
+    }
+  }, []); // Empty dependency array ensures this runs only once on mount
 
   const theme = createTheme({
     colorSchemes: {
